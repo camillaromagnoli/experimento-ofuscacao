@@ -1,0 +1,33 @@
+plugins {
+    id 'dagger.hilt.android.plugin'
+    id 'com.android.application'
+}
+apply from: '../common.gradle'
+
+android {
+
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':uicommon')
+    implementation project(':features:home')
+    implementation project(':features:pin')
+
+    appImplDependencies.each { v -> implementation v }
+}
